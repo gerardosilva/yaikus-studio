@@ -25,14 +25,11 @@ Destacados: reglas editables · vertical 9:16 (TikTok, Reels, Shorts) y horizont
 
 ## Instalar
 1. Descarga el `.dmg` de **[Releases](../../releases/latest)** y arrastra la app a *Aplicaciones*. Requiere macOS 14 o superior.
-2. **Primer arranque:** esta versión temprana aún no está notarizada por Apple. macOS la bloqueará una vez: *Ajustes del Sistema → Privacidad y seguridad → Abrir de todos modos*.
+2. La app está firmada con Developer ID y **notarizada por Apple**, así que se abre como cualquier otra app, sin avisos de seguridad.
 3. En la app: agrega una fuente, conecta tu IA, elige una voz y crea tu primer video desde *Noticias*.
 
 ## Estado
-**v0.1, versión temprana.** Funciona de punta a punta, pero espera detalles por pulir. Límites conocidos: sin notarizar; la versión Intel está compilada pero no probada en hardware real; las integraciones con Pexels y ElevenLabs no se han probado con cuentas reales.
-
-## Hoja de ruta
-Versiones notarizadas.
+**v0.1, versión temprana.** Funciona de punta a punta, pero espera detalles por pulir. Límites conocidos: la versión Intel está compilada pero no probada en hardware real; las integraciones con Pexels y ElevenLabs no se han probado con cuentas reales.
 
 ## Licencia
 Código: [MIT](LICENSE). El nombre **Yaikus Studio** y el ícono no están cubiertos por la licencia: ver [TRADEMARKS.md](TRADEMARKS.md).

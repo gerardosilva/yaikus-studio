@@ -53,18 +53,14 @@ The server only listens on `127.0.0.1` and requires the token shown in the app.
 ## Install
 
 1. Download the latest `.dmg` from **[Releases](../../releases/latest)**, open it and drag **Yaikus Studio** to **Applications**. Requires macOS 14 or later.
-2. **First launch:** this early release isn't notarized by Apple yet, so macOS will block it once. Go to **System Settings → Privacy & Security**, scroll down and click **Open Anyway**.
+2. The app is signed with a Developer ID and **notarized by Apple**, so it opens like any other app, with no security warnings.
 3. In the app: add a source in **Sources**, connect your AI in **Agent** (or use **Connect agents**), pick a voice in **Voice**, and create your first video from **News**.
 
 Each release includes a `SHA256SUMS.txt` so you can verify the download: `shasum -a 256 YaikusStudio-*.dmg`.
 
 ## Status
 
-This is **v0.1 — an early release**. It works end to end, but expect rough edges. Known limits: not notarized yet; the Intel (x86_64) build is compiled but hasn't been tested on real hardware; the stock-footage and ElevenLabs integrations are written against their public APIs but haven't been run against live accounts. Issues and feedback are very welcome.
-
-## Roadmap
-
-- Notarized builds.
+This is **v0.1 — an early release**. It works end to end, but expect rough edges. Known limits: the Intel (x86_64) build is compiled but hasn't been tested on real hardware; the stock-footage and ElevenLabs integrations are written against their public APIs but haven't been run against live accounts. Issues and feedback are very welcome.
 
 ## Privacy
 

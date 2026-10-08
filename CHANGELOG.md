@@ -8,3 +8,4 @@ First public release (free). Native macOS app.
 - Bring your own voice (Mac voice, OpenAI-compatible API or ElevenLabs), karaoke captions, backgrounds: the story's image, your own file or Pexels footage.
 - Native AVFoundation render: no Python, no ffmpeg, no extra installs.
 - English and Spanish interface, keys in the Keychain, new-version notice.
+- Signed with a Developer ID and notarized by Apple.

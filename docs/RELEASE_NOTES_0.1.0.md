@@ -11,10 +11,8 @@ Turn today's news into short videos with **your own AI**. A free, open-source Ma
 - Backgrounds: story image, your own image/video, or royalty-free footage from Pexels.
 - Native macOS app (14+), English and Spanish, no accounts, no telemetry, API keys in the Keychain.
 
-**Install:** download the `.dmg` below, drag the app to Applications. This early release isn't notarized yet, so on first launch go to *System Settings → Privacy & Security → Open Anyway*. Verify the download with `SHA256SUMS.txt`.
+**Install:** download the `.dmg` below, drag the app to Applications. The app is signed with a Developer ID and notarized by Apple, so it opens like any other app. Verify the download with `SHA256SUMS.txt`.
 
-**Known limits (v0.1):** not notarized; the Intel build hasn't been tested on real hardware; Pexels and ElevenLabs haven't been run against live accounts.
-
-**Next:** notarized builds.
+**Known limits (v0.1):** the Intel build hasn't been tested on real hardware; Pexels and ElevenLabs haven't been run against live accounts.
 
 Feedback and issues are very welcome.
