@@ -1,0 +1,59 @@
+name: Release
+
+# Publishes a release with the DMG when a vX.Y.Z tag is pushed (it must match the VERSION file).
+#   git tag v0.1.0 && git push origin v0.1.0
+# Signing and notarization are optional: without the secrets, the DMG gets an ad-hoc signature.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-15
+    env:
+      MAC_CERT_P12: ${{ secrets.MAC_CERT_P12 }}
+      MAC_CERT_PASSWORD: ${{ secrets.MAC_CERT_PASSWORD }}
+      SIGN_IDENTITY: ${{ secrets.MAC_SIGN_IDENTITY }}
+      NOTARY_APPLE_ID: ${{ secrets.NOTARY_APPLE_ID }}
+      NOTARY_TEAM_ID: ${{ secrets.NOTARY_TEAM_ID }}
+      NOTARY_PASSWORD: ${{ secrets.NOTARY_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Tag matches VERSION
+        run: |
+          [ "v$(tr -d '[:space:]' < VERSION)" = "$GITHUB_REF_NAME" ] || { echo "Tag $GITHUB_REF_NAME does not match VERSION ($(cat VERSION))"; exit 1; }
+
+      - name: Import Developer ID certificate (optional)
+        if: env.MAC_CERT_P12 != ''
+        run: |
+          KC="$RUNNER_TEMP/build.keychain-db"
+          security create-keychain -p ci "$KC"
+          security set-keychain-settings -lut 21600 "$KC"
+          security unlock-keychain -p ci "$KC"
+          echo "$MAC_CERT_P12" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+          security import "$RUNNER_TEMP/cert.p12" -k "$KC" -P "$MAC_CERT_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -s -k ci "$KC"
+          security list-keychains -d user -s "$KC" $(security list-keychains -d user | tr -d '"')
+          echo "SIGN_ID=$SIGN_IDENTITY" >> "$GITHUB_ENV"
+
+      - name: Tests
+        run: swift test
+
+      - name: Build DMG
+        run: ./packaging/package.sh
+
+      - name: Checksums
+        run: cd build && shasum -a 256 YaikusStudio-*.dmg > SHA256SUMS.txt && cat SHA256SUMS.txt
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          NOTES="docs/RELEASE_NOTES_$(tr -d '[:space:]' < VERSION).md"
+          if [ -f "$NOTES" ]; then NOTES_ARG=(--notes-file "$NOTES"); else NOTES_ARG=(--generate-notes); fi
+          gh release create "$GITHUB_REF_NAME" build/YaikusStudio-*.dmg build/SHA256SUMS.txt \
+            --title "Yaikus Studio $GITHUB_REF_NAME" "${NOTES_ARG[@]}"
